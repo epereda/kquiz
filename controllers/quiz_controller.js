@@ -2,7 +2,12 @@ var models = require('../models/models.js');
 
 // GET /quizes/index
 exports.index = function(req, res) {
-  models.Quiz.findAll().then( function(quizes) {
+  var options = {};
+  if(req.query.search){
+  	options.where= ["pregunta like ?", "%"+req.query.search.replace(/\s/g,"%")+"%" ];
+  	options.order= "pregunta" ;
+  }
+  models.Quiz.findAll(options).then( function(quizes) {
 	res.render('quizes/index.ejs', {quizes: quizes});
   })
 };
