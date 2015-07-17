@@ -7,7 +7,7 @@ var quizController = require('../controllers/quiz_controller');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 // Kike por el curso
-  res.render('index', { title: 'K-Quiz' });
+  res.render('index', { title: 'K-Quiz', errors: []});
 });
 
 // Autoload de comandos con :quizId
@@ -23,7 +23,7 @@ router.post('/quizes/create',              quizController.create);
 // K: Definición de rutas de /author
 router.get('/author', 				function(req, res, next) {
 // Kike para el curso ejercicio
-  res.render('author', { title: 'K-Quiz' });
+  res.render('author', { title: 'K-Quiz',errors: []});
 });
 
 module.exports = router;
