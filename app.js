@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // Kike por el curso modulo 6 tema 6 marco de la aplicación(Layout)
 var partials = require('express-partials');
+// Kike por el curso modulo 8 tema 3 editar pregunta
+var methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 // Kike por el curso
@@ -26,6 +28,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
