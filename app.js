@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 // Kike por el curso modulo 8 tema 3 editar pregunta
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 // Kike por el curso
@@ -26,10 +27,30 @@ app.use(partials());
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cookieParser('Kquiz 2015'));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
+
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Helpers dinamicos:
+app.use(function(req, res, next) {
+
+  // guardar path en session.redir para despues de login
+  if (!req.path.match(/\/login|\/logout|\/user/)) {
+    req.session.redir = req.path;
+  }
+
+  // Hacer visible req.session en las vistas
+  res.locals.session = req.session;
+  next();
+});
 
 app.use('/', routes);
 // Kike por el curso
