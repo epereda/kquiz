@@ -4,4 +4,4 @@ npm-debug.log
 public/k*
 public/.k*
 *~
-!quiz.sqlite
+quiz.sqlite

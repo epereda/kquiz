@@ -5,7 +5,11 @@ exports.load = function(req, res, next, quizId) {
   models.Quiz.find({
             where: {
                 id: Number(quizId)
-            }}).then(function(quiz) {
+            },
+            include: [{
+                model: models.Comment
+            }]
+          }).then(function(quiz) {
       if (quiz) {
         req.quiz = quiz;
         next();
@@ -28,7 +32,11 @@ exports.index = function(req, res) {
 
 // GET /quizes/show
 exports.show = function(req, res) {
-  models.Quiz.find({where:{id: Number(req.params.quizId)}}).then( function(quiz) {
+  models.Quiz.find({where:{id: Number(req.params.quizId)},
+            include: [{
+                model: models.Comment
+            }]
+}).then( function(quiz) {
 	res.render('quizes/show', {quiz: quiz, errors: []});
   })
 };
