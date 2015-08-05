@@ -23,7 +23,7 @@ app.set('view engine', 'ejs');
 // Kike por el curso modulo 6 tema 6 marco de la aplicación(Layout)
 app.use(partials());
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
