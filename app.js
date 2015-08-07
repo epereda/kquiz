@@ -52,6 +52,25 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Un middleware sin ruta; se ejecuta cada ve que llamemos la app
+// cuando existe req.session.user
+app.use(function (req, res, next) {
+  if ( req.session.user && res.locals.session.user ) {
+    if ( req.session.user.time ) {
+      var hora_limite= req.session.user.time + 120000; //120 segundos = 2 minutos
+      res.locals.session.user.time = Date.now();   
+      
+      if ( res.locals.session.user.time > hora_limite ) {
+        delete res.locals.session.user;
+      }
+    } else {
+      res.locals.session.user.time = Date.now();   
+    }
+  } 
+  //console.log('Time:', Date.now());
+  next();
+});
+
 app.use('/', routes);
 // Kike por el curso
 //app.use('/users', users);
